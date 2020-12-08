@@ -23,4 +23,5 @@ class DecayThenFlatSchedule():
             return max(self.finish, self.start - self.delta * T)
         elif self.decay in ["exp"]:
             return min(self.start, max(self.finish, np.exp(- T / self.exp_scaling)))
+
     pass

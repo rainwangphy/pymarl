@@ -13,7 +13,7 @@ class QTranBase(nn.Module):
         self.n_agents = args.n_agents
         self.n_actions = args.n_actions
         self.state_dim = int(np.prod(args.state_shape))
-        self.arch = self.args.qtran_arch # QTran architecture
+        self.arch = self.args.qtran_arch  # QTran architecture
 
         self.embed_dim = args.mixing_embed_dim
 
@@ -91,8 +91,9 @@ class QTranBase(nn.Module):
 
             hidden_states = hidden_states.reshape(bs * ts, self.n_agents, -1)
             agent_state_action_input = th.cat([hidden_states, actions], dim=2)
-            agent_state_action_encoding = self.action_encoding(agent_state_action_input.reshape(bs * ts * self.n_agents, -1)).reshape(bs * ts, self.n_agents, -1)
-            agent_state_action_encoding = agent_state_action_encoding.sum(dim=1) # Sum across agents
+            agent_state_action_encoding = self.action_encoding(
+                agent_state_action_input.reshape(bs * ts * self.n_agents, -1)).reshape(bs * ts, self.n_agents, -1)
+            agent_state_action_encoding = agent_state_action_encoding.sum(dim=1)  # Sum across agents
 
             inputs = th.cat([states, agent_state_action_encoding], dim=1)
 
@@ -102,4 +103,3 @@ class QTranBase(nn.Module):
         v_outputs = self.V(states)
 
         return q_outputs, v_outputs
-

@@ -23,8 +23,8 @@ class QMixer(nn.Module):
                                            nn.ReLU(),
                                            nn.Linear(hypernet_embed, self.embed_dim * self.n_agents))
             self.hyper_w_final = nn.Sequential(nn.Linear(self.state_dim, hypernet_embed),
-                                           nn.ReLU(),
-                                           nn.Linear(hypernet_embed, self.embed_dim))
+                                               nn.ReLU(),
+                                               nn.Linear(hypernet_embed, self.embed_dim))
         elif getattr(args, "hypernet_layers", 1) > 2:
             raise Exception("Sorry >2 hypernet layers is not implemented!")
         else:

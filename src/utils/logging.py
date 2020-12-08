@@ -2,6 +2,7 @@ from collections import defaultdict
 import logging
 import numpy as np
 
+
 class Logger:
     def __init__(self, console_logger):
         self.console_logger = console_logger
@@ -62,4 +63,3 @@ def get_logger():
     logger.setLevel('DEBUG')
 
     return logger
-
