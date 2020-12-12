@@ -74,7 +74,7 @@ def config_copy(config):
 if __name__ == '__main__':
     # params = deepcopy(sys.argv)
 
-    params = ['--config=qmix', '--env-config=sc2', 'env_args.map_name=2s3z']
+    params = ['--config=qmix', '--env-config=sc2', 'env_args.map_name=5m_vs_6m']
 
     # Get the defaults from default.yaml
     with open(os.path.join(os.path.dirname(__file__), "config", "default.yaml"), "r") as f:
