@@ -1,0 +1,1 @@
+## Note for PySC2: How to Interact with SC2

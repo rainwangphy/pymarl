@@ -78,7 +78,7 @@ class NashStarCraft2Env(MultiAgentEnv):
             game_version=None,
             seed=None,
             continuing_episode=False,
-            enemies_type='Bot',
+            enemies_type='Agent',
             obs_all_health=True,
             obs_own_health=True,
             obs_last_action=False,
@@ -430,7 +430,8 @@ class NashStarCraft2Env(MultiAgentEnv):
                 actions[a_id] = action_num
             if sc_action:
                 sc_actions.append(sc_action)
-
+        # for act in sc_actions:
+        #     sc_actions.append(act)
         # Send action request
         req_actions = sc_pb.RequestAction(actions=sc_actions)
         try:
@@ -1536,6 +1537,9 @@ class NashStarCraft2Env(MultiAgentEnv):
     def get_unit_by_id(self, a_id):
         """Get unit by ID."""
         return self.agents[a_id]
+
+    def gen_enemy_by_id(self, e_id):
+        return self.enemies[e_id]
 
     def get_stats(self):
         stats = {

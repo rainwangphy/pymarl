@@ -1,0 +1,1 @@
+## Note for StarCraft II: How to Create Maps 
