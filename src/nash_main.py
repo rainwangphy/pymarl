@@ -1,16 +1,19 @@
-from smac.env import StarCraft2Env
+# from smac.env import StarCraft2Env
+from nash_envs import NashStarCraft2Env
 import numpy as np
 
 
 def main():
-    env = StarCraft2Env(map_name="8m")
+    env = NashStarCraft2Env(map_name="nash_3m")
     env_info = env.get_env_info()
     print(env_info)
 
     n_actions = env_info["n_actions"]
     n_agents = env_info["n_agents"]
 
-    n_episodes = 10
+    n_episodes = 100
+
+    # env.reset()
 
     for e in range(n_episodes):
         env.reset()
@@ -30,6 +33,7 @@ def main():
 
             reward, terminated, _ = env.step(actions)
             episode_reward += reward
+            env.render()
 
         print("Total reward in episode {} = {}".format(e, episode_reward))
 
