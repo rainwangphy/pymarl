@@ -15,7 +15,7 @@ from absl import logging
 
 from pysc2 import maps
 from pysc2 import run_configs
-from pysc2.lib import protocol
+from pysc2.lib import protocol, run_parallel, portspicker
 
 from s2clientprotocol import common_pb2 as sc_common
 from s2clientprotocol import sc2api_pb2 as sc_pb
@@ -256,9 +256,9 @@ class NashStarCraft2Env(MultiAgentEnv):
 
         # Map info
         self._agent_race = map_params["a_race"]
-        self._bot_race = map_params["b_race"]
+        self._enemy_race = map_params["b_race"]
         self.shield_bits_ally = 1 if self._agent_race == "P" else 0
-        self.shield_bits_enemy = 1 if self._bot_race == "P" else 0
+        self.shield_bits_enemy = 1 if self._enemy_race == "P" else 0
         self.unit_type_bits = map_params["unit_type_bits"]
         self.map_type = map_params["map_type"]
 
@@ -320,13 +320,8 @@ class NashStarCraft2Env(MultiAgentEnv):
             realtime=False,
             random_seed=self._seed)
         create.player_setup.add(type=sc_pb.Participant)
-
-        if self.enemies_type == 'Bot':
-            create.player_setup.add(type=sc_pb.Computer, race=races[self._bot_race],
-                                    difficulty=difficulties[self.difficulty])
-        else:
-            create.player_setup.add(type=sc_pb.Participant)
-
+        create.player_setup.add(type=sc_pb.Computer, race=races[self._enemy_race],
+                                difficulty=difficulties[self.difficulty])
         self._controller.create_game(create)
 
         join = sc_pb.RequestJoinGame(race=races[self._agent_race],
